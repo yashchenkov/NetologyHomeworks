@@ -21,13 +21,8 @@ class AlarmClock {
 	}
 
 	removeClock(id) {
-		let elemIndex; 
-		this.alarmCollection.some((elem, index) => {
-			if (elem.id === id) {
-				elemIndex = index;
-			}
-		}
-		);
+		
+		let elemIndex = this.alarmCollection.findIndex((elem) => elem.id === id);
 
 		if(elemIndex !== undefined) {
 			this.alarmCollection.splice(elemIndex, 1);
@@ -42,9 +37,9 @@ class AlarmClock {
 	}
 
 	start() {
-		function checkClock(alarm) {
-			if (new Date().toLocaleTimeString().substring(0, 5) === alarm.time) {
-				alarm.callback;
+		let checkClock = (alarm) => {
+			if (this.getCurrentFormattedTime() === alarm.time) {
+				alarm.callback();
 			}
 		}
 
@@ -68,9 +63,7 @@ class AlarmClock {
 
 	clearAlarms() {
 		this.stop();
-		while(this.alarmCollection.length) {
-			this.alarmCollection.pop();
-		}
+		this.alarmCollection = [];
 	}
 }
 
