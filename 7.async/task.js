@@ -44,7 +44,7 @@ class AlarmClock {
 		}
 
 		if (this.timerId === null) {
-			this.timerId = setInterval(this.alarmCollection.forEach(checkClock, 1000));
+			this.timerId = setInterval(this.alarmCollection.forEach(checkClock), 1000);
 		}
 
 	}
@@ -77,5 +77,7 @@ function testCase() {
 		alarm.clearAlarms();
 		alarm.printAlarms();
 	},3);
+
+	alarm.start();
 
 }
