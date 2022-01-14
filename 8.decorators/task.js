@@ -5,9 +5,8 @@ function cachingDecoratorNew(func) {
     let hash = args.toString();
     let found = cashe.find((elem) => elem.hash === hash);
 
-    if(found !==  undefined) {
-      console.log("Из кэша: " + cashe[hash]);
-      return "Из кэша: " + cashe[hash];
+    if(found) {
+      return "Из кэша: " + found.value;
     } else {
       let result = func(...args);
       let length = cashe.push({
@@ -47,10 +46,11 @@ function debounceDecoratorNew(func, ms) {
 function debounceDecorator2(func, ms) {
     let timeout;
     let flag = false;
-    let history = [];
+    let history = 0;
     
-    return function (...args) {
-      history.push(args);
+    return function f (...args) {
+      history++;
+      f.count = history;
       if(!flag) {
       flag = true;
       func.call(this, ...args);
